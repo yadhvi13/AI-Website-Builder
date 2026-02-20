@@ -27,7 +27,7 @@ const Home = () => {
                 <div className='max-w-7xl mx-auto px-6 py-4 flex justify-between items-center'>
                     {/* left side */}
                     <div className='text-lg font-semibold'>
-                        GenWeb.ai
+                      Elvora.ai
                     </div>
 
                     {/* right side */}
@@ -83,7 +83,7 @@ const Home = () => {
                                 className='rounded-2xl bg-white/5 border border-white/10 p-8'
                             >
                                 <h1 className='text-xl font-semibold mb-3'>{h}</h1>
-                                <p className='text-sm text-zinc-400'>GenWeb.ai builds real websites - clean code, animations, responsiveness and scalable structure.</p>
+                                <p className='text-sm text-zinc-400'>Elvora.ai builds real websites - clean code, animations, responsiveness and scalable structure.</p>
                             </motion.div>
                         )
                     })}
