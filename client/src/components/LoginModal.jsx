@@ -2,6 +2,7 @@ import React from 'react'
 import { AnimatePresence, motion } from "motion/react";
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../firebase';
+import { serverUrl } from '../App';
 import axios from 'axios';
 
 const LoginModal = ({ open, onClose }) => {
