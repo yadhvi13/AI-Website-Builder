@@ -6,11 +6,14 @@ import { serverUrl } from '../App';
 import axios from 'axios';
 
 const LoginModal = ({ open, onClose }) => {
+    const [authLoading, setAuthLoading] = React.useState(false);
 
     // handle google login
     const handleGoogleAuth = async () => {
+        if (authLoading) return; // prevent double-clicks / multiple popups
+        setAuthLoading(true);
         try {
-            const result = await signInWithPopup(auth, provider)
+            const result = await signInWithPopup(auth, provider);
             console.log(result);
             const { data } = await axios.post(`${serverUrl}/api/auth/google`,
                 {
@@ -18,13 +21,18 @@ const LoginModal = ({ open, onClose }) => {
                     email: result.user.email,
                     avatar: result.user.photoURL
                 },
-                { withCredentials: true })
-                console.log(data);
-                
-
+                { withCredentials: true });
+            console.log(data);
         } catch (error) {
-            console.log(error);
-
+            if (error.code === "auth/cancelled-popup-request") {
+                // User closed popup or clicked twice – no need to show error
+            } else if (error.code === "ERR_NETWORK" || error.message?.includes("Network Error")) {
+                console.error("Backend not reachable. Make sure the server is running: npm run dev in the server folder.");
+            } else {
+                console.error(error);
+            }
+        } finally {
+            setAuthLoading(false);
         }
     }
 
@@ -79,15 +87,17 @@ const LoginModal = ({ open, onClose }) => {
                                 </h2>
 
                                 <motion.button
-                                    className='group relative w-full h-13 rounded-xl bg-white text-black font-semibold shadow-xl overflow-hidden'
-                                    whileHover={{ scale: 1.04 }}
-                                    whileTap={{ scale: 0.96 }}
+                                    className='group relative w-full h-13 rounded-xl bg-white text-black font-semibold shadow-xl overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed'
+                                    whileHover={!authLoading ? { scale: 1.04 } : {}}
+                                    whileTap={!authLoading ? { scale: 0.96 } : {}}
                                     onClick={handleGoogleAuth}
+                                    disabled={authLoading}
                                 >
                                     <div className='relative flex items-center justify-center gap-3'>
                                         <img
                                             className='h-5 w-5'
-                                            src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="" /> Continue with Google
+                                            src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="" />
+                                        {authLoading ? "Signing in…" : "Continue with Google"}
                                     </div>
                                 </motion.button>
 
