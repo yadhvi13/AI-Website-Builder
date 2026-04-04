@@ -83,7 +83,7 @@ const LoginModal = ({ open, onClose }) => {
                                 <h1 className='inline-block mb-6 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-zinc-300'>AI-powered website builder</h1>
                                 <h2 className='text-3xl font-semibold loading-tight mb-3 space-x-2'>
                                     <span>Welcome to</span>
-                                    <span className='bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent'>Elvora.ai</span>
+                                    <span className='bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent'>NavSkills.</span>
                                 </h2>
 
                                 <motion.button

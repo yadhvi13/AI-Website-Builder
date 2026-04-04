@@ -8,6 +8,7 @@ import cors from "cors";
 
 import connectDb from "./config/db.js";
 import authRouter from "./routes/auth.routes.js";
+import aiRouter from "./routes/ai.routes.js";
 import cookieParser from "cookie-parser";
 
 
@@ -22,6 +23,7 @@ app.use(cors({
     credentials: true,
 }))
 app.use("/api/auth", authRouter);
+app.use("/api/ai", aiRouter);
 
 app.get("/", (req, res) => {
     res.send("Backend Working ✅");
